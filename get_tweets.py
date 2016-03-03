@@ -9,6 +9,7 @@ TIMEOUT = 0
 tweets = {}
 tweets_features = {}
 count = 0
+fpath = '/Users/PauKung/Downloads/sanders-twitter-0.2/' #have the file path set to dataset folder
 
 def get_tweets(tw_ids,timeout=TIMEOUT):  
     global count 
@@ -27,7 +28,7 @@ def get_tweets(tw_ids,timeout=TIMEOUT):
 if __name__ == "__main__":
     labelmap = {"positive":1, "negative":-1, "neutral":2, "irrelevant":2}
     labelcount = {}
-    with open('/Users/PauKung/Downloads/sanders-twitter-0.2/corpus.csv','rb') as csvfile:
+    with open(fpath+'corpus.csv','rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"', quoting = csv.QUOTE_MINIMAL)
         for row in reader:
             tweets[int(row[2])]=[row[0], row[1]]
@@ -40,7 +41,7 @@ if __name__ == "__main__":
     
     print "finished loading pickled data"
     get_tweets([tid for tid in tweets])
-    with open('/Users/PauKung/Downloads/sanders-twitter-0.2/features.csv', 'wb') as csvfile:
+    with open(fpath+'features.csv', 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for tw in tweets_features:
             label = labelmap[tweets[tw][1]]
